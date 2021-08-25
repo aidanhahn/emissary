@@ -39,6 +39,7 @@ jobs:
           password: ${{ secrets.GH_DOCKER_BUILD_TOKEN }}
       - name: "make push"
         run: |
+          title="${{ github.event.pull_request.title }}"
           make push
       - name: "make push-dev"
         run: |
