@@ -1,0 +1,9 @@
+name: CodeQL - github-actions security checks
+
+disable-default-queries: true
+
+queries:
+  - name: Untrusted Checkout Queries
+    uses: github/codeql/javascript/ql/src/experimental/Security/CWE-094/UntrustedCheckout.ql@main
+  - name: Expression Injection Queries
+    uses: github/codeql/javascript/ql/src/experimental/Security/CWE-094/ExpressionInjection.ql@main
