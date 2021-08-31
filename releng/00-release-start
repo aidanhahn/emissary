@@ -107,9 +107,6 @@ def main(next_ver: str, commit: bool = True) -> int:
         run(["git", "push", "-u", "origin", workbranch])
     if not checker.ok:
         return 1
-#    if has_open_pr(get_gh_repo(), base_branch, current_release_branch):
-#        run(["gh", "pr", "view", workbranch, "--repo", get_gh_repo()])
-#        return 0
     pr_message = f"[v{next_ver}] Release Branch"
     pr_body = PR_MESSAGE.format(next_ver=next_ver, pr_branch=current_release_branch)
     if not checker.ok:
