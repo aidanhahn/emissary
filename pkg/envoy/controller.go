@@ -172,11 +172,11 @@ func SetupEnvoyController(t *testing.T, address string) *EnvoyController {
 }
 
 // ID is a callback function that the go control plane uses. I don't know what it does.
-func (e EnvoyController) ID(node *core.Node) string {
-	if node == nil {
+func (e EnvoyController) ID(noede *core.Node) string {
+	if noede == nil {
 		return "unknown"
 	}
-	return node.Id
+	return noede.Id
 }
 
 // OnStreamOpen is called once an xDS stream is open with a stream ID and the type URL (or "" for ADS).
