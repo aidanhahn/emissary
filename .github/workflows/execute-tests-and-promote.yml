@@ -19,6 +19,10 @@ on:
       - 'k8s-config/**'
       - 'docs/**'
       - '*.md$'
+  pull_request:
+    branches:
+      - master
+      - release/v*
 
 jobs:
   lint-test:
