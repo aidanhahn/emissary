@@ -80,6 +80,17 @@ Please see the [Envoy documentation](https://www.envoyproxy.io/docs/envoy/latest
 
 ## RELEASE NOTES
 
+## [2.0.40] TBD
+[2.0.40]: https://github.com/emissary-ingress/emissary/compare/v2.0.4...v2.0.40
+
+We're pleased to introduce Emissary-ingress 2.0.4 for general availability for new installations!
+The 2.X family introduces a number of changes to allow Emissary-ingress to more gracefully handle
+larger installations, reduce global configuration to better handle multitenant or
+multiorganizational installations, reduce memory footprint, and improve performance. We welcome
+feedback!! Join us on <a href="https://a8r.io/slack">Slack</a> and let us know what you think.
+
+### Emissary-ingress and Ambassador Edge Stack
+
 ## [2.0.4] TBD
 [2.0.4]: https://github.com/emissary-ingress/emissary/compare/v2.0.3-ea...v2.0.4
 
