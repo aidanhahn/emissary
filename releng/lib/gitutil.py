@@ -1,6 +1,8 @@
 import http.client
 import json
 
+from typing import Optional, Union
+
 from distutils.util import strtobool
 
 from .uiutil import run, check_command
