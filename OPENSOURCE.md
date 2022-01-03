@@ -191,4 +191,4 @@ libraries:
     urllib3              1.26.5     MIT license
     webencodings         0.5.1      3-clause BSD license
     websocket-client     0.57.0     3-clause BSD license
-    zipp                 3.6.0      MIT license
+    zipp                 3.7.0      MIT license
