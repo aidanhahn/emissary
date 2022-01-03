@@ -69,7 +69,7 @@ func parseLicenses(name, version, license string) map[License]struct{} {
 		{"typing_extensions", "4.0.1", ""}:             {PSF},
 		{"webencodings", "0.5.1", "BSD"}:               {BSD3},
 		{"websocket-client", "0.57.0", "BSD"}:          {BSD3},
-		{"zipp", "3.6.0", "UNKNOWN"}:                   {MIT},
+		{"zipp", "3.7.0", "UNKNOWN"}:                   {MIT},
 
 		// These are packages with non-trivial strings to parse, and
 		// it's easier to just hard-code it.
