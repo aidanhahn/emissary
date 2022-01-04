@@ -27,7 +27,8 @@ jobs:
           password: ${{ secrets.GH_DOCKER_RELEASE_TOKEN }}
       - name: "make release/promote-oss/dev-to-rc"
         run: |
-          make release/promote-oss/dev-to-rc VERSION=${GITHUB_REF#refs/*/}
+          export VERSION=${GITHUB_REF#refs/*/}
+          make release/promote-oss/dev-to-rc VERSION=${VERSION#v}
       - name: Extract RC Info
         shell: bash
         run: |
