@@ -31,6 +31,15 @@
 
 changelog: https://github.com/emissary-ingress/emissary/blob/$branch$/CHANGELOG.md
 items:
+  - version: 2.1.2
+    date: '2022-01-19'
+    notes:
+      - title: TODO
+        type: bugfix
+        body: TODO
+
+  # There was no v2.1.1 release; we skipped to v2.1.2 to keep in-sync with AES.
+
   - version: 2.1.0
     date: '2021-12-16'
     notes:
