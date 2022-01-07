@@ -80,6 +80,13 @@ Please see the [Envoy documentation](https://www.envoyproxy.io/docs/envoy/latest
 
 ## RELEASE NOTES
 
+## [2.1.1] January 10, 2022
+[2.1.1]: https://github.com/emissary-ingress/emissary/compare/v2.1.0...v2.1.1
+
+### Emissary-ingress and Ambassador Edge Stack
+
+- Bugfix: TODO
+
 ## [2.1.0] December 16, 2021
 [2.1.0]: https://github.com/emissary-ingress/emissary/compare/v2.0.5...v2.1.0
 
