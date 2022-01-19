@@ -36,7 +36,7 @@ def _get_envoy_config(yaml, version='V3'):
 def test_setting_buffer_limit():
     yaml = """
 ---
-apiVersion: getambassador.io/v2
+apiVersion: getambassador.io/v3alpha1
 kind: Module
 metadata:
   name: ambassador
@@ -45,7 +45,7 @@ spec:
   config:
     buffer_limit_bytes: 5242880
 ---
-apiVersion: x.getambassador.io/v3alpha1
+apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
   name: ambassador
@@ -76,7 +76,7 @@ spec:
 def test_setting_buffer_limit_V3():
     yaml = """
 ---
-apiVersion: getambassador.io/v2
+apiVersion: getambassador.io/v3alpha1
 kind: Module
 metadata:
   name: ambassador
@@ -85,7 +85,7 @@ spec:
   config:
     buffer_limit_bytes: 5242880
 ---
-apiVersion: x.getambassador.io/v3alpha1
+apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
   name: ambassador
@@ -118,7 +118,7 @@ spec:
 def test_default_buffer_limit():
     yaml = """
 ---
-apiVersion: x.getambassador.io/v3alpha1
+apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
   name: ambassador
@@ -142,7 +142,7 @@ spec:
 def test_default_buffer_limit_V3():
     yaml = """
 ---
-apiVersion: x.getambassador.io/v3alpha1
+apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
   name: ambassador
@@ -166,7 +166,7 @@ spec:
 def test_buffer_limit_no_listener():
     yaml = """
 ---
-apiVersion: x.getambassador.io/v3alpha1
+apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
   name: ambassador
@@ -190,7 +190,7 @@ spec:
 def test_buffer_limit_no_listener_V3():
     yaml = """
 ---
-apiVersion: x.getambassador.io/v3alpha1
+apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
   name: ambassador

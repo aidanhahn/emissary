@@ -80,14 +80,33 @@ Please see the [Envoy documentation](https://www.envoyproxy.io/docs/envoy/latest
 
 ## RELEASE NOTES
 
-## [2.0.4] TBD
+## [2.0.5] TBD
+[2.0.5]: https://github.com/emissary-ingress/emissary/compare/v2.0.4...v2.0.5
+
+### Emissary-ingress and Ambassador Edge Stack
+
+- Feature: It is now possible to set the `circuit_breakers` for `AuthServices`, exactly the same as
+  for `Mappings` and `TCPMappings`. This makes it possible to configure your `AuthService` to be
+  able to handle more than 1024 concurrent requests.
+
+- Bugfix: Any token delimited by '%' is now validated agains a whitelist of valid Envoy command
+  operators. Any mapping containing an `error_response_overrides` section with invalid command
+  operators will be discarded.
+
+- Bugfix: The `Host` CRD now correctly supports the `mappingSelector` element, as documented. As a
+  transition aid, `selector` is a synonym for `mappingSelector`; a future version of
+  Emissary-ingress will remove the `selector` element. ([3902])
+
+[3902]: https://github.com/emissary-ingress/emissary/issues/3902
+
+## [2.0.4] October 19, 2021
 [2.0.4]: https://github.com/emissary-ingress/emissary/compare/v2.0.3-ea...v2.0.4
 
-We're pleased to introduce Emissary-ingress 2.0.4 for general availability for new installations!
-The 2.X family introduces a number of changes to allow Emissary-ingress to more gracefully handle
-larger installations, reduce global configuration to better handle multitenant or
-multiorganizational installations, reduce memory footprint, and improve performance. We welcome
-feedback!! Join us on <a href="https://a8r.io/slack">Slack</a> and let us know what you think.
+We're pleased to introduce Emissary-ingress 2.0.4 for general availability! The 2.X family
+introduces a number of changes to allow Emissary-ingress to more gracefully handle larger
+installations, reduce global configuration to better handle multitenant or multiorganizational
+installations, reduce memory footprint, and improve performance. We welcome feedback!! Join us on <a
+href="https://a8r.io/slack">Slack</a> and let us know what you think.
 
 ### Emissary-ingress and Ambassador Edge Stack
 
@@ -96,6 +115,10 @@ feedback!! Join us on <a href="https://a8r.io/slack">Slack</a> and let us know w
   removed for ease of migration. _Note that `getambassador.io/v3alpha1` is the only supported API
   version for 2.0.4_ &mdash; full support for `getambassador.io/v2` will arrive soon in a later 2.X
   version.
+
+- Feature: The `getambassador.io/v3alpha1` API version and the published chart and manifests have
+  been updated to support Kubernetes 1.22. Thanks to <a href="https://github.com/imoisharma">Mohit
+  Sharma</a> for contributions to this feature!
 
 - Feature: You can now set `dns_type` between `strict_dns` and `logical_dns` in a `Mapping` to
   configure the Service Discovery Type.
@@ -112,7 +135,7 @@ feedback!! Join us on <a href="https://a8r.io/slack">Slack</a> and let us know w
 - Bugfix: Large configurations no longer cause Emissary-ingress to be unable to communicate with
   Ambassador Cloud. ([#3593])
 
-- Bugfix: The `l7Depth` element of the `Listener` CRD is  properly supported.
+- Bugfix: The `l7Depth` element of the `Listener` CRD is properly supported.
 
 [#3854]: https://github.com/emissary-ingress/emissary/issues/3854
 [#3593]: https://github.com/emissary-ingress/emissary/issues/3593
@@ -208,14 +231,14 @@ href="https://a8r.io/slack">Slack</a> and let us know what you think.
   configuration changes that are not backwards compatible with the 1.X family.  API versions
   `getambassador.io/v0`, `getambassador.io/v1`, and `getambassador.io/v2` are deprecated.  Further
   details are available in the <a
-  href="about/changes-2.0.0/#1-configuration-api-version-xgetambassadoriov3alpha1">2.0.0 Changes</a>
-  document.
+  href="../about/changes-2.0.0/#1-configuration-api-version-xgetambassadoriov3alpha1">2.0.0
+  Changes</a> document.
 
 - Feature: The new `AmbassadorListener` CRD defines where and how to listen for requests from the
   network, and which `AmbassadorHost` definitions should be used to process those requests. Note
   that the `AmbassadorListener` CRD is _mandatory_ and consolidates <i>all</i> port configuration;
-  see the <a href="topics/running/ambassadorlistener">`AmbassadorListener` documentation</a> for
-  more details.
+  see the <a href="../topics/running/listener">`AmbassadorListener` documentation</a> for more
+  details.
 
 - Feature: Where `AmbassadorMapping`'s `host` field is either an exact match or (with `host_regex`
   set) a regex, the new `hostname` element is always a DNS glob. Use `hostname` instead of `host`
@@ -246,17 +269,17 @@ href="https://a8r.io/slack">Slack</a> and let us know what you think.
   `AmbassadorMapping`'s `host` or the `AmbassadorHost`'s `selector` (or both) are explicitly set,
   and match. This change can significantly improve Emissary-ingress's memory footprint when many
   `AmbassadorHost`s are involved. Further details are available in the <a
-  href="about/changes-2.0.0/#host-and-mapping-association">2.0.0 Changes</a> document.
+  href="../about/changes-2.0.0/#host-and-mapping-association">2.0.0 Changes</a> document.
 
 - Change: An `AmbassadorHost` or `Ingress` resource is now required when terminating TLS -- simply
   creating a `TLSContext` is not sufficient. Further details are available in the <a
-  href="about/changes-2.0.0/#host-tlscontext-and-tls-termination">`AmbassadorHost` CRD
+  href="../about/changes-2.0.0/#host-tlscontext-and-tls-termination">`AmbassadorHost` CRD
   documentation.</a>
 
 - Change: By default, Emissary-ingress will configure Envoy using the V3 Envoy API. This change is
   mostly transparent to users, but note that Envoy V3 does not support unsafe regular expressions
   or, e.g., Zipkin's V1 collector protocol. Further details are available in the <a
-  href="about/changes-2.0.0">2.0.0 Changes</a> document.
+  href="../about/changes-2.0.0">2.0.0 Changes</a> document.
 
 - Change: The `tls` module and the `tls` field in the Ambassador module are no longer supported.
   Please use `TLSContext` resources instead.
@@ -281,8 +304,8 @@ href="https://a8r.io/slack">Slack</a> and let us know what you think.
 - Feature: You can now set `respect_dns_ttl` in Ambassador Mappings. When true it configures that
   upstream's refresh rate to be set to resource record’s TTL
 
-- Feature: You can now set `dns_type` to in Ambassador Mappings to use Envoy's `logical_dns`
-  resolution instead of the default `strict_dns`.
+- Feature: You can now set `dns_type` in Ambassador Mappings to use Envoy's `logical_dns` resolution
+  instead of the default `strict_dns`.
 
 - Feature: You can now set `buffer_limit_bytes` in the `ambassador` `Module` to to change the size
   of the upstream read and write buffers. The default is 1MiB.
@@ -402,7 +425,7 @@ href="https://a8r.io/slack">Slack</a> and let us know what you think.
 
 ### Emissary-ingress and Ambassador Edge Stack
 
-- Bugfix: Incorporate the Envoy 1.15.5 security update by adding the
+- Security: Incorporate the Envoy 1.15.5 security update by adding the
   `reject_requests_with_escaped_slashes` option to the Ambassador module.
 
 ## [1.13.3] May 03, 2021

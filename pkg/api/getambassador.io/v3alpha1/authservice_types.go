@@ -42,23 +42,24 @@ type AuthServiceSpec struct {
 	AmbassadorID AmbassadorID `json:"ambassador_id,omitempty"`
 
 	// +kubebuilder:validation:Required
-	AuthService string        `json:"auth_service,omitempty"`
-	PathPrefix  string        `json:"path_prefix,omitempty"`
-	TLS         *BoolOrString `json:"tls,omitempty"`
+	AuthService string `json:"auth_service,omitempty"`
+	PathPrefix  string `json:"path_prefix,omitempty"`
+	TLS         string `json:"tls,omitempty"`
 	// +kubebuilder:validation:Enum={"http","grpc"}
 	Proto                       string                    `json:"proto,omitempty"`
 	TimeoutMs                   *int                      `json:"timeout_ms,omitempty"`
 	AllowedRequestHeaders       []string                  `json:"allowed_request_headers,omitempty"`
 	AllowedAuthorizationHeaders []string                  `json:"allowed_authorization_headers,omitempty"`
-	AddAuthHeaders              map[string]BoolOrString   `json:"add_auth_headers,omitempty"`
+	AddAuthHeaders              map[string]string         `json:"add_auth_headers,omitempty"`
 	AllowRequestBody            *bool                     `json:"allow_request_body,omitempty"`
 	AddLinkerdHeaders           *bool                     `json:"add_linkerd_headers,omitempty"`
 	FailureModeAllow            *bool                     `json:"failure_mode_allow,omitempty"`
 	IncludeBody                 *AuthServiceIncludeBody   `json:"include_body,omitempty"`
 	StatusOnError               *AuthServiceStatusOnError `json:"status_on_error,omitempty"`
 	// +kubebuilder:validation:Enum={"v2","v3"}
-	ProtocolVersion string `json:"protocol_version,omitempty"`
-	StatsName       string `json:"stats_name,omitempty"`
+	ProtocolVersion string            `json:"protocol_version,omitempty"`
+	StatsName       string            `json:"stats_name,omitempty"`
+	CircuitBreakers []*CircuitBreaker `json:"circuit_breakers,omitempty"`
 }
 
 // AuthService is the Schema for the authservices API

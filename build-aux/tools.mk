@@ -37,19 +37,21 @@ $(tools.bindir)/%: $(tools.srcdir)/%.sh
 # `go get`-able things
 # ====================
 #
-tools/chart-doc-gen  = $(tools.bindir)/chart-doc-gen
-tools/controller-gen = $(tools.bindir)/controller-gen
-tools/go-bindata     = $(tools.bindir)/go-bindata
-tools/golangci-lint  = $(tools.bindir)/golangci-lint
-tools/kubestatus     = $(tools.bindir)/kubestatus
-tools/protoc-gen-go  = $(tools.bindir)/protoc-gen-go
-tools/yq             = $(tools.bindir)/yq
+tools/chart-doc-gen   = $(tools.bindir)/chart-doc-gen
+tools/controller-gen  = $(tools.bindir)/controller-gen
+tools/go-bindata      = $(tools.bindir)/go-bindata
+tools/go-mkopensource = $(tools.bindir)/go-mkopensource
+tools/golangci-lint   = $(tools.bindir)/golangci-lint
+tools/kubestatus      = $(tools.bindir)/kubestatus
+tools/protoc-gen-go   = $(tools.bindir)/protoc-gen-go
+tools/yq              = $(tools.bindir)/yq
 $(tools.bindir)/%: $(tools.srcdir)/%/pin.go $(tools.srcdir)/%/go.mod
 	cd $(<D) && GOOS= GOARCH= go build -o $(abspath $@) $$(sed -En 's,^import "(.*)".*,\1,p' pin.go)
 # Let these use the main Emissary go.mod instead of having their own go.mod.
-tools.main-gomod += $(tools/protoc-gen-go)  # ensure runtime libraries are consistent
-tools.main-gomod += $(tools/controller-gen) # ensure runtime libraries are consistent
-tools.main-gomod += $(tools/kubestatus)     # is actually part of Emissary
+tools.main-gomod += $(tools/protoc-gen-go)   # ensure runtime libraries are consistent
+tools.main-gomod += $(tools/controller-gen)  # ensure runtime libraries are consistent
+tools.main-gomod += $(tools/go-mkopensource) # ensure it is consistent with py-mkopensource
+tools.main-gomod += $(tools/kubestatus)      # is actually part of Emissary
 $(tools.main-gomod): $(tools.bindir)/%: $(tools.srcdir)/%/pin.go $(OSS_HOME)/go.mod
 	cd $(<D) && GOOS= GOARCH= go build -o $(abspath $@) $$(sed -En 's,^import "(.*)".*,\1,p' pin.go)
 
@@ -60,7 +62,6 @@ tools/crds2schemas    = $(tools.bindir)/crds2schemas
 tools/dsum            = $(tools.bindir)/dsum
 tools/fix-crds        = $(tools.bindir)/fix-crds
 tools/flock           = $(tools.bindir)/flock
-tools/go-mkopensource = $(tools.bindir)/go-mkopensource
 tools/gotest2tap      = $(tools.bindir)/gotest2tap
 tools/py-mkopensource = $(tools.bindir)/py-mkopensource
 tools/schema-fmt      = $(tools.bindir)/schema-fmt
@@ -110,6 +111,13 @@ GRPC_WEB_PLATFORM         := $(GOHOSTOS)-$(shell uname -m)
 $(tools.bindir)/protoc-gen-grpc-web: $(tools.mk)
 	mkdir -p $(@D)
 	curl -o $@ -L --fail https://github.com/grpc/grpc-web/releases/download/$(GRPC_WEB_VERSION)/protoc-gen-grpc-web-$(GRPC_WEB_VERSION)-$(GRPC_WEB_PLATFORM)
+	chmod 755 $@
+
+tools/kubectl = $(tools.bindir)/kubectl
+KUBECTL_VERSION = $(shell sed -En 's,.*https://storage\.googleapis\.com/kubernetes-release/release/v([0-9.]*)/bin/linux/amd64/kubectl.*,\1,p' builder/Dockerfile.base)
+$(tools.bindir)/kubectl: builder/Dockerfile.base
+	mkdir -p $(@D)
+	curl -o $@ -L --fail https://storage.googleapis.com/kubernetes-release/release/v$(KUBECTL_VERSION)/bin/$(GOHOSTOS)/$(GOHOSTARCH)/kubectl
 	chmod 755 $@
 
 endif
