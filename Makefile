@@ -4,6 +4,8 @@ unexport BASH_ENV # bad configuration mechanism, but CircleCI insists on it
 unexport CDPATH   # should not be exported, but some people do
 unexport IFS      # should not be exported, but some people do
 
+# Dumb fake change that doesnt matter
+
 # In the days before Bash 2.05 (April 2001), Bash had a hack in it
 # where it would load the interactive-shell configuration when run
 # from sshd, I guess to work around buggy sshd implementations that
